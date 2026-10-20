@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="Assets/favicon.png">
+
+  <title>Seminář (nejen)&nbsp;o&nbsp;kybernetické bezpečnosti | 10.–11. listopadu 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #00a9e6;
+      --blue-dark: #0090cf;
+      --blue-light: #00c8ff;
+      --sky: #e5f5fc;
+      --dark: #2b2e33;
+      --text: #111111;
+      --muted: #5f6368;
+      --line: #dcdfe2;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Open Sans", Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #f1f3f5;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: auto;
+      background: #ffffff;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    h1, h2, h3,
+    .date,
+    .day-head strong,
+    .print-button,
+    .button {
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+    }
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .hero {
+      background: #ffffff;
+      padding: 44px 64px 40px;
+      position: relative;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .hero-shapes {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 62%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero > *:not(.hero-shapes) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      min-height: 60px;
+    }
+
+    .logo img {
+      display: block;
+      width: 270px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .date {
+      text-align: right;
+      color: var(--blue);
+      font-size: 50px;
+      font-weight: 800;
+      line-height: 0.9;
+    }
+
+    .date span {
+      display: block;
+      color: #333333;
+      font-size: 19px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+    }
+
+    h1 {
+      max-width: 620px;
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1.05;
+      margin: 36px 0 18px;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .lead {
+      max-width: 860px;
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #333333;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .print-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 26px;
+      border: 0;
+      border-radius: 2px;
+      background: var(--blue);
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .print-button svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .print-button:hover {
+      background: var(--blue-dark);
+    }
+
+    .print-button:disabled {
+      opacity: 0.7;
+      cursor: progress;
+    }
+
+    .pdf-status {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .pdf-status:empty {
+      display: none;
+    }
+
+    .organizer-credit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 30px 0 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .organizer-credit h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .organizer-logo {
+      display: block;
+      width: 200px;
+      max-width: 55%;
+      height: auto;
+    }
+
+    /* =========================
+       PROGRAM
+       ========================= */
+
+    main {
+      padding: 36px 64px 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 38px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .meta {
+      margin: 6px 0 18px;
+      color: #333333;
+      font-size: 17px;
+    }
+
+    .rule {
+      height: 2px;
+      background: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .program {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .day {
+      padding: 4px 32px 5px 0;
+    }
+
+    .day + .day {
+      border-left: 2px solid var(--blue);
+      padding-left: 32px;
+      padding-right: 0;
+    }
+
+    .day-head {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      color: #444444;
+      text-transform: uppercase;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .day-head strong {
+      color: var(--blue);
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .item {
+      padding: 0 0 18px;
+      margin: 0 0 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .item:last-child {
+      border-bottom: 0;
+    }
+
+    .item h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .item p {
+      margin: 0;
+      color: #4a4d52;
+      font-size: 15.5px;
+      line-height: 1.45;
+    }
+
+    .item p strong {
+      color: var(--text);
+    }
+
+    /* =========================
+       PRO KOHO
+       ========================= */
+
+    .audience {
+      margin: 26px 0;
+      padding: 22px 40px;
+      background: var(--sky);
+      border-left: 6px solid var(--blue);
+    }
+
+    .audience strong {
+      display: block;
+      margin-bottom: 6px;
+      font-family: "Poppins", Arial, sans-serif;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+
+    .audience p {
+      margin: 0;
+      font-size: 15px;
+      color: #4a4d52;
+    }
+
+    /* =========================
+       PARTNEŘI
+       ========================= */
+
+    .partners {
+      margin: 30px 0 36px;
+    }
+
+    .partners h2 {
+      margin-bottom: 18px;
+      font-size: 27px;
+    }
+
+    .partner-logos {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .partner-logo {
+      height: 120px;
+      padding: 22px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .partner-logo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* =========================
+       REGISTRACE
+       ========================= */
+
+    .registration {
+      background: var(--dark);
+      padding: 34px 64px 40px;
+      color: white;
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .registration h2 {
+      color: var(--blue-light);
+      font-size: 34px;
+    }
+
+    .registration p {
+      max-width: 620px;
+      margin: 8px 0;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+      background: var(--blue);
+      color: #ffffff;
+      padding: 15px 32px;
+      border-radius: 2px;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: 0.2s ease;
+    }
+
+    .button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .button:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+    }
+
+    .contact {
+      margin-top: 22px !important;
+      color: #eeeeee;
+    }
+
+    .contact a {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .qr {
+      width: 180px;
+      height: 180px;
+      padding: 10px;
+      background: #ffffff;
+      margin-left: auto;
+      overflow: hidden;
+    }
+
+    .qr img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* =========================
+       MOBIL
+       ========================= */
+
+    @media (max-width: 760px) {
+
+      .hero,
+      main,
+      .registration {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .hero-shapes {
+        width: 100%;
+        opacity: 0.6;
+      }
+
+      .hero-top {
+        display: block;
+      }
+
+      .logo img {
+        width: 190px;
+      }
+
+      .date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        margin-top: 25px;
+        font-size: 42px;
+        line-height: 1;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .organizer-logo {
+        width: 160px;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      .program {
+        grid-template-columns: 1fr;
+      }
+
+      .day,
+      .day + .day {
+        padding: 12px 0;
+        border-left: 0;
+      }
+
+      .day + .day {
+        border-top: 2px solid var(--blue);
+        margin-top: 10px;
+      }
+
+      .audience {
+        padding: 18px 20px;
+      }
+
+      .partner-logos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .partner-logo {
+        height: 100px;
+        padding: 16px;
+      }
+
+      .registration {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .qr {
+        margin: 0;
+      }
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 5mm;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        max-width: none;
+        box-shadow: none;
+      }
+
+      .print-button,
+      .pdf-status {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+
+  <header class="hero">
+
+    <svg class="hero-shapes" viewBox="0 0 700 440" preserveAspectRatio="xMaxYMin slice" aria-hidden="true">
+      <polygon points="300,0 700,0 700,230" fill="#00a9e6" opacity="0.06"/>
+      <polygon points="430,0 700,0 700,150 560,70" fill="#00c8ff" opacity="0.08"/>
+      <polygon points="420,260 640,135 640,385" fill="#00c8ff" opacity="0.16"/>
+      <polygon points="520,210 700,105 700,315" fill="#00a9e6" opacity="0.10"/>
+      <polygon points="330,330 470,250 470,410" fill="#00c8ff" opacity="0.08"/>
+      <polygon points="600,330 700,270 700,440 640,440" fill="#00a9e6" opacity="0.07"/>
+    </svg>
+
+    <div class="hero-top">
+
+      <div class="logo">
+        <img src="Assets/dns-logo.png" alt="DNS">
+      </div>
+
+      <div class="date">
+        10.–11.
+        <span>LISTOPADU 2026</span>
+      </div>
+
+    </div>
+
+
+    <h1>
+      Seminář (nejen)<br>
+      o kybernetické bezpečnosti
+    </h1>
+
+    <p class="lead">
+      Rozhodnutí o&nbsp;bezpečnosti, posilování odolnosti a&nbsp;kontinuitě provozu nese vedení
+      organizace. <br> Přijďte si na konkrétních případech ověřit,
+      co bývá kritické, co se dá odložit a&nbsp;kde se nejčastěji chybuje.
+    </p>
+
+    <div class="hero-bottom">
+      <div>
+        <button class="print-button" type="button">
+          Stáhnout pozvánku jako PDF
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M4 16v4h16v-4"/>
+          </svg>
+        </button>
+        <p class="pdf-status" id="pdf-status" role="status" aria-live="polite"></p>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       PROGRAM
+       ========================= -->
+
+  <main>
+
+    <h2>Program</h2>
+
+    <div class="meta">
+      10.–11. listopadu 2026 / Hotel Akademie Naháč
+    </div>
+
+    <div class="rule"></div>
+
+
+    <section class="program">
+
+      <!-- ÚTERÝ -->
+
+      <div class="day">
+
+        <div class="day-head">
+          <span>Úterý</span>
+          <strong>10. 11.</strong>
+        </div>
+
+        <article class="item">
+          <h3>
+            Provozní odolnost: finance, energetika a&nbsp;digitální produkty
+          </h3>
+          <p>
+            <strong>Ondřej Vízner</strong> z Broker Trustu a&nbsp;další vystupující: co v praxi znamená nařízení DORA ve&nbsp;finančním sektoru, jak se na&nbsp;výpadky připravuje energetika a&nbsp;jaké požadavky přináší nařízení o&nbsp;kybernetické odolnosti (CRA) pro výrobce produktů se softwarem i&nbsp;organizace, které je nakupují.
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>
+            Řízení bezpečnosti a&nbsp;krizových situací v&nbsp;komerčních organizacích
+          </h3>
+          <p>
+            Skutečné případy z provozu: co se dělo při výpadku, kdo a&nbsp;jak rychle se o&nbsp;něm dozvěděl, jaká rozhodnutí muselo přijmout vedení a&nbsp;co se ukázalo jako zásadní pro obnovení provozu.
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>
+            Kontinuita provozu a&nbsp;analýza dopadů
+          </h3>
+          <p>
+            <strong>Aleš Špidla</strong> z&nbsp;CEVRO univerzity a&nbsp;otevřená diskuze o&nbsp;tom, jak dlouho organizace zvládne výpadek, které činnosti a&nbsp;systémy musí chránit přednostně a&nbsp;v jakém pořadí je obnovovat. Ukážeme si, jak z&nbsp;analýzy dopadů (BIA) vytvořit plán použitelný při skutečné krizi. U&nbsp;organizací, kterým tuto povinnost ukládá legislativa, je řízení kontinuity také povinným bezpečnostním opatřením, za jehož zajištění odpovídá vedení.
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>
+            Večerní networking
+          </h3>
+          <p>
+            Společná večeře a&nbsp;prostor pro neformální diskuzi, sdílení zkušeností a&nbsp;navázání kontaktů s&nbsp;řečníky i&nbsp;ostatními účastníky.
+          </p>
+        </article>
+
+      </div>
+
+
+      <!-- STŘEDA -->
+
+      <div class="day">
+
+        <div class="day-head">
+          <span>Středa</span>
+          <strong>11. 11.</strong>
+        </div>
+
+        <article class="item">
+          <h3>
+            Legislativa: co platí a&nbsp;kde se povinnosti překrývají
+          </h3>
+          <p>
+            <strong>Miroslav Pavelka</strong> z&nbsp;České zemědělské univerzity v&nbsp;Praze představí povinnosti vyplývající z&nbsp;nového zákona o&nbsp;kybernetické bezpečnosti, zákona o&nbsp;kritické infrastruktuře a&nbsp;krizového zákona. Vysvětlí rozdíly mezi režimem vyšších a&nbsp;nižších povinností a&nbsp;priority při zavádění požadovaných opatření.
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>
+            Krizové řízení v&nbsp;nemocnici: scénář, cvičení, ostrá situace
+          </h3>
+          <p>
+            <strong>Daniel Naivert</strong> z&nbsp;Fakultní nemocnice Ostrava přiblíží, jak se připravují krizové scénáře, jak se jejich funkčnost ověřuje při cvičeních a&nbsp;testech a co prověří až skutečná událost v&nbsp;provozu, který nelze zastavit.
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>
+            Umělá inteligence: pravidla a&nbsp;kontrola
+          </h3>
+          <p>
+            Jaké povinnosti a&nbsp;bezpečnostní rizika přináší používání AI a&nbsp;jak nastavit pravidla s&nbsp;ohledem na ochranu dat a&nbsp;systém řízení bezpečnosti informací (ISMS). Součástí budou živé ukázky, jak zjistit, kam data z&nbsp;AI nástrojů odcházejí.
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>
+            Technologie a&nbsp;data: jak ověřit, že opatření fungují
+          </h3>
+          <p>
+            Jak penetrační testy a&nbsp;etický hacking odhalují cesty, kterými může útočník do&nbsp;organizace proniknout. Zaměříme se také na ověření, zda a&nbsp;jak rychle organizace útok zaznamená, a&nbsp;na to, jak podle výsledků určit priority nápravných opatření.
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRO KOHO
+         ========================= -->
+
+    <section class="audience">
+
+      <strong>Pro koho</strong>
+
+      <p>
+        Vedení a&nbsp;odpovědní pracovníci veřejné správy, obcí, měst, krajů, nemocnic, zřizovaných organizací, kritické infrastruktury a&nbsp;komerčních společností.
+      </p>
+
+    </section>
+
+    <section class="organizer-credit" aria-labelledby="organizer-heading">
+      <h2 id="organizer-heading">Organizátor</h2>
+      <img class="organizer-logo" src="Assets/oad_logo.png" alt="Open Apps Development">
+    </section>
+
+    <section class="partners" aria-labelledby="partners-heading">
+
+      <h2 id="partners-heading">Partneři semináře</h2>
+
+      <div class="partner-logos">
+        <div class="partner-logo">
+          <img src="Assets/ngss_logo.svg" alt="NGSS">
+        </div>
+        <div class="partner-logo">
+          <img src="Assets/PERITRA_logo.png" alt="Peritra">
+        </div>
+        <div class="partner-logo">
+          <img src="Assets/CZU_logo.png" alt="Česká zemědělská univerzita v Praze">
+        </div>
+        <div class="partner-logo">
+          <img src="Assets/dns-logo.png" alt="DNS">
+        </div>
+        <div class="partner-logo">
+          <img src="Assets/cevro_logo.jpg" alt="CEVRO Univerzita">
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       REGISTRACE
+       ========================= -->
+
+  <footer class="registration">
+
+    <div>
+
+      <h2>Registrace</h2>
+
+      <p>
+        Kapacita semináře je omezená.
+        Zaregistrujte se pomocí QR kódu
+        nebo registračního formuláře.
+      </p>
+
+      <p>
+        Přesný harmonogram bude dostupný nejpozději <strong>26. 10. 2026</strong>.
+      </p>
+
+      <a
+        class="button"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSfI2gcTMn72gzF2Ot-kEs3qLH5UZHdK9OpFA0NrPHE-iIQo8w/viewform?usp=publish-editor"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Registrační formulář
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12h15"/><path d="M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+
+      <p class="contact">
+        Kontakt: <a href="mailto:tereza.modrackova@openapps.cz">tereza.modrackova@openapps.cz</a>
+      </p>
+
+    </div>
+
+    <div class="qr">
+      <img src="Assets/QR_registrace_DNS.png" alt="QR kód pro registraci">
+    </div>
+
+  </footer>
+
+</div>
+
+<script src="Assets/jspdf.umd.min.js"></script>
+<script>
+  const pdfButton = document.querySelector(".print-button");
+  const pdfStatus = document.querySelector("#pdf-status");
+  const page = document.querySelector(".page");
+
+  pdfButton.addEventListener("click", async () => {
+    pdfButton.disabled = true;
+    pdfStatus.textContent = "Připravuji PDF…";
+
+    try {
+      if (!window.jspdf?.jsPDF) {
+        throw new Error("Knihovna pro vytvoření PDF se nenačetla.");
+      }
+
+      const images = await Promise.all(
+        Array.from(page.querySelectorAll("img"), async image => {
+          await image.decode();
+          const canvas = document.createElement("canvas");
+          canvas.width = image.naturalWidth;
+          canvas.height = image.naturalHeight;
+          const context = canvas.getContext("2d");
+
+          if (!context) {
+            throw new Error(`Nepodařilo se připravit logo ${image.alt} do PDF.`);
+          }
+
+          context.drawImage(image, 0, 0);
+          return [image.alt, canvas.toDataURL("image/png")];
+        })
+      );
+      const imageData = new Map(images);
+      const fontFiles = await Promise.all([
+        fetch("Assets/DejaVuSans.ttf").then(response => {
+          if (!response.ok) {
+            throw new Error("Nepodařilo se načíst písmo pro PDF.");
+          }
+          return response.arrayBuffer();
+        }),
+        fetch("Assets/DejaVuSans-Bold.ttf").then(response => {
+          if (!response.ok) {
+            throw new Error("Nepodařilo se načíst tučné písmo pro PDF.");
+          }
+          return response.arrayBuffer();
+        })
+      ]);
+
+      const toBase64 = buffer => {
+        const bytes = new Uint8Array(buffer);
+        let binary = "";
+        const chunkSize = 0x8000;
+
+        for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+          binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+        }
+
+        return btoa(binary);
+      };
+
+      const getPdfText = element => element.innerText.trim().replace(/\s+/g, " ");
+      const { jsPDF } = window.jspdf;
+      const pageWidth = 210;
+      const pageHeight = 297;
+      const margin = 10;
+      const contentWidth = pageWidth - margin * 2;
+      const titleLines = page.querySelector("h1").innerText
+        .trim()
+        .split(/\n+/)
+        .map(line => line.trim().toLocaleUpperCase("cs-CZ"))
+        .filter(Boolean);
+      const days = Array.from(page.querySelectorAll(".day"));
+      const partnerImages = Array.from(page.querySelectorAll(".partner-logo img"));
+      const logo = page.querySelector(".logo img");
+      const audience = page.querySelector(".audience");
+      const registration = page.querySelector(".registration");
+      const qr = registration.querySelector(".qr img");
+
+      const createPdf = scale => {
+        const pdf = new jsPDF({
+          unit: "mm",
+          format: "a4",
+          orientation: "portrait",
+          compress: true
+        });
+        const sx = value => pageWidth / 2 + (value - pageWidth / 2) * scale;
+        const sy = value => margin + (value - margin) * scale;
+        const sw = value => value * scale;
+
+        pdf.addFileToVFS("DejaVuSans.ttf", toBase64(fontFiles[0]));
+        pdf.addFont("DejaVuSans.ttf", "DejaVu", "normal");
+        pdf.addFileToVFS("DejaVuSans-Bold.ttf", toBase64(fontFiles[1]));
+        pdf.addFont("DejaVuSans-Bold.ttf", "DejaVu", "bold");
+
+        const setTextStyle = (size, weight, color) => {
+          pdf.setFont("DejaVu", weight);
+          pdf.setFontSize(size * scale);
+          pdf.setTextColor(...color);
+        };
+
+        const addTextBlock = (text, x, top, width, size, weight, color, leading) => {
+          setTextStyle(size, weight, color);
+          const lines = pdf.splitTextToSize(text, sw(width));
+          const lineHeight = sw(leading);
+          pdf.text(lines, sx(x), sy(top) + sw(size * 0.35), {
+            lineHeightFactor: leading / (size * 0.3528)
+          });
+          return top + lines.length * lineHeight;
+        };
+
+        const addMixedParagraph = (element, x, top, width, size, leading, color) => {
+          const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+          const words = [];
+
+          while (walker.nextNode()) {
+            const node = walker.currentNode;
+            const bold = Boolean(node.parentElement.closest("strong"));
+            for (const part of node.textContent.split(/(\s+)/)) {
+              if (part) {
+                words.push({ text: part, bold });
+              }
+            }
+          }
+
+          let currentX = sx(x);
+          let currentY = sy(top) + sw(size * 0.35);
+          const right = sx(x + width);
+          const lineHeight = sw(leading);
+          let hasTextOnLine = false;
+
+          for (const word of words) {
+            if (/^\s+$/.test(word.text)) {
+              if (hasTextOnLine) {
+                setTextStyle(size, word.bold ? "bold" : "normal", color);
+                const spaceWidth = pdf.getTextWidth(" ");
+                if (currentX + spaceWidth > right) {
+                  currentX = sx(x);
+                  currentY += lineHeight;
+                  hasTextOnLine = false;
+                } else {
+                  currentX += spaceWidth;
+                }
+              }
+              continue;
+            }
+
+            setTextStyle(size, word.bold ? "bold" : "normal", color);
+            const wordWidth = pdf.getTextWidth(word.text);
+
+            if (hasTextOnLine && currentX + wordWidth > right) {
+              currentX = sx(x);
+              currentY += lineHeight;
+              hasTextOnLine = false;
+            }
+
+            pdf.text(word.text, currentX, currentY);
+            currentX += wordWidth;
+            hasTextOnLine = true;
+          }
+
+          return top + (currentY - sy(top)) + sw(leading);
+        };
+
+        const addImage = (element, key, x, top, maxWidth, maxHeight) => {
+          const data = imageData.get(key);
+          if (!data) {
+            throw new Error(`V PDF chybí obrázek ${key}.`);
+          }
+
+          const ratio = element.naturalWidth / element.naturalHeight;
+          const width = Math.min(maxWidth, maxHeight * ratio);
+          const height = width / ratio;
+          pdf.addImage(
+            data,
+            "PNG",
+            sx(x + (maxWidth - width) / 2),
+            sy(top + (maxHeight - height) / 2),
+            sw(width),
+            sw(height)
+          );
+        };
+
+        const navy = [43, 46, 51];
+        const green = [0, 169, 230];
+        const mint = [229, 245, 252];
+        const textColor = [51, 51, 51];
+        const muted = [98, 98, 98];
+        const white = [255, 255, 255];
+
+        pdf.setFillColor(...white);
+        pdf.rect(sx(0), sy(0), sw(pageWidth), sw(61), "F");
+        addImage(logo, logo.alt, 10, 8, 48, 16);
+
+        const dateLines = getPdfText(page.querySelector(".date")).split(" ");
+        setTextStyle(20, "bold", green);
+        pdf.text(dateLines[0], sx(pageWidth - margin), sy(13) + sw(6), { align: "right" });
+        setTextStyle(8, "normal", textColor);
+        pdf.text(dateLines.slice(1).join(" "), sx(pageWidth - margin), sy(24) + sw(3), {
+          align: "right"
+        });
+
+        let headerY = 29;
+        for (const line of titleLines) {
+          setTextStyle(19, "bold", textColor);
+          pdf.text(line, sx(margin), sy(headerY) + sw(6.7));
+          headerY += 7.5;
+        }
+        addTextBlock(
+          getPdfText(page.querySelector(".lead")),
+          margin,
+          47,
+          contentWidth,
+          8.5,
+          "normal",
+          muted,
+          3.8
+        );
+
+        addTextBlock(
+          getPdfText(page.querySelector("main > h2")),
+          margin,
+          67,
+          contentWidth,
+          14,
+          "bold",
+          textColor,
+          6
+        );
+        addTextBlock(
+          getPdfText(page.querySelector(".meta")),
+          margin,
+          74,
+          contentWidth,
+          8.5,
+          "normal",
+          muted,
+          4
+        );
+        pdf.setDrawColor(...green);
+        pdf.setLineWidth(0.8 * scale);
+        pdf.line(sx(margin), sy(84), sx(pageWidth - margin), sy(84));
+
+        const columnGap = 8;
+        const columnWidth = (contentWidth - columnGap) / 2;
+        const columnXs = [margin, margin + columnWidth + columnGap];
+        let bottom = 89;
+
+        days.forEach((day, dayIndex) => {
+          let columnY = 89;
+          const dayName = getPdfText(day.querySelector(".day-head span"));
+          const dayDate = getPdfText(day.querySelector(".day-head strong"));
+          const x = columnXs[dayIndex];
+
+          pdf.setFillColor(...mint);
+          pdf.roundedRect(sx(x), sy(columnY), sw(columnWidth), sw(8), sw(1.5), sw(1.5), "F");
+          setTextStyle(8, "bold", textColor);
+          pdf.text(dayName.toLocaleUpperCase("cs-CZ"), sx(x + 3), sy(columnY + 2) + sw(3));
+          pdf.text(dayDate, sx(x + columnWidth - 3), sy(columnY + 2) + sw(3), {
+            align: "right"
+          });
+          columnY += 11;
+
+          for (const item of day.querySelectorAll(".item")) {
+            columnY = addTextBlock(
+              getPdfText(item.querySelector("h3")).toLocaleUpperCase("cs-CZ"),
+              x,
+              columnY,
+              columnWidth,
+              8.2,
+              "bold",
+              [17, 17, 17],
+              3.6
+            ) + 1;
+            columnY = addMixedParagraph(
+              item.querySelector("p"),
+              x,
+              columnY,
+              columnWidth,
+              7.4,
+              3.3,
+              muted
+            ) + 2.5;
+          }
+
+          bottom = Math.max(bottom, columnY);
+        });
+
+        let sectionY = bottom + 1;
+        const audienceLabel = audience.querySelector("strong");
+        const audienceCopy = audience.querySelector("p");
+        pdf.setFillColor(...mint);
+        pdf.roundedRect(sx(margin), sy(sectionY), sw(contentWidth), sw(17), sw(2), sw(2), "F");
+        addTextBlock(
+          getPdfText(audienceLabel).toLocaleUpperCase("cs-CZ"),
+          margin + 4,
+          sectionY + 2,
+          contentWidth - 8,
+          8,
+          "bold",
+          textColor,
+          3.5
+        );
+        addTextBlock(
+          getPdfText(audienceCopy),
+          margin + 4,
+          sectionY + 7,
+          contentWidth - 8,
+          7.7,
+          "normal",
+          textColor,
+          3.5
+        );
+
+        sectionY += 21;
+        setTextStyle(9, "bold", textColor);
+        pdf.text("ORGANIZÁTOR", sx(margin), sy(sectionY + 2) + sw(3));
+        addImage(
+          page.querySelector(".organizer-logo"),
+          "Open Apps Development",
+          margin + 31,
+          sectionY,
+          42,
+          9
+        );
+        sectionY += 13;
+        const partnersSection = page.querySelector(".partners");
+        addTextBlock(
+          getPdfText(partnersSection.querySelector("h2")).toLocaleUpperCase("cs-CZ"),
+          margin,
+          sectionY,
+          contentWidth,
+          11,
+          "bold",
+          textColor,
+          5
+        );
+        sectionY += 7;
+        const partnerGap = 3;
+        const partnerWidth = (contentWidth - partnerGap * 4) / 5;
+        partnerImages.forEach((image, index) => {
+          const x = margin + index * (partnerWidth + partnerGap);
+          pdf.setFillColor(247, 250, 249);
+          pdf.setDrawColor(226, 235, 234);
+          pdf.roundedRect(sx(x), sy(sectionY), sw(partnerWidth), sw(18), sw(1), sw(1), "FD");
+          addImage(image, image.alt, x + 2, sectionY + 2, partnerWidth - 4, 14);
+        });
+
+        sectionY += 23;
+        const footerTop = sectionY;
+        const footerHeight = 42;
+        pdf.setFillColor(...navy);
+        pdf.roundedRect(
+          sx(margin),
+          sy(footerTop),
+          sw(contentWidth),
+          sw(footerHeight),
+          sw(2),
+          sw(2),
+          "F"
+        );
+        addTextBlock(
+          getPdfText(registration.querySelector("h2")).toLocaleUpperCase("cs-CZ"),
+          margin + 5,
+          footerTop + 3,
+          contentWidth - 45,
+          12,
+          "bold",
+          [0, 200, 255],
+          5
+        );
+
+        const registrationParagraphs = Array.from(registration.querySelectorAll("p"))
+          .filter(paragraph => !paragraph.classList.contains("contact"));
+        let registrationY = footerTop + 10;
+        for (const paragraph of registrationParagraphs) {
+          registrationY = addTextBlock(
+            getPdfText(paragraph),
+            margin + 5,
+            registrationY,
+            contentWidth - 45,
+            7.2,
+            "normal",
+            white,
+            3.2
+          ) + 1;
+        }
+
+        const formLink = registration.querySelector(".button");
+        const buttonY = registrationY + 1;
+        pdf.setFillColor(...green);
+        pdf.roundedRect(sx(margin + 5), sy(buttonY), sw(53), sw(8), sw(1.5), sw(1.5), "F");
+        addTextBlock(
+          getPdfText(formLink).toLocaleUpperCase("cs-CZ"),
+          margin + 8,
+          buttonY + 1.5,
+          48,
+          7,
+          "bold",
+          white,
+          3
+        );
+        pdf.link(sx(margin + 5), sy(buttonY), sw(53), sw(8), { url: formLink.href });
+
+        const contact = registration.querySelector(".contact a");
+        setTextStyle(7.5, "normal", white);
+        pdf.text(
+          contact.href.replace("mailto:", ""),
+          sx(margin + 63),
+          sy(buttonY + 1.5) + sw(2.5)
+        );
+        pdf.link(sx(margin + 63), sy(buttonY), sw(55), sw(8), { url: contact.href });
+        addImage(qr, qr.alt, pageWidth - margin - 31, footerTop + 5, 25, 25);
+
+        return { pdf, bottom: sy(footerTop + footerHeight) };
+      };
+
+      let result = createPdf(1);
+      const maxContentBottom = pageHeight - margin;
+      if (result.bottom > maxContentBottom) {
+        const scale = Math.max(0.78, (maxContentBottom - margin) / (result.bottom - margin));
+        result = createPdf(scale);
+      }
+
+      if (result.bottom > maxContentBottom) {
+        throw new Error("Text pozvánky se nevejde na jednu stránku A4.");
+      }
+
+      result.pdf.save("pozvanka-seminar-kyberneticka-bezpecnost.pdf");
+
+      pdfStatus.textContent = "PDF je připravené ke stažení.";
+    } catch (error) {
+      console.error("Nepodařilo se vytvořit PDF pozvánky.", error);
+      pdfStatus.textContent = "PDF se nepodařilo vytvořit. Zkuste to prosím znovu.";
+    } finally {
+      pdfButton.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
